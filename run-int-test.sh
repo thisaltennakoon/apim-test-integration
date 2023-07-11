@@ -94,8 +94,14 @@ source /etc/environment
 log_info "Clone Product repository"
 git clone https://${GIT_USER}:${GIT_PASS}@$PRODUCT_REPOSITORY --branch $PRODUCT_REPOSITORY_BRANCH --single-branch
 
-log_info "Exporting JDK"
-install_jdk ${JDK_TYPE}
+if [[ ${JDK_TYPE} == "TEMURIN_OPEN_JDK8" ]]
+   then
+    log_info "Exporting ${JDK_TYPE}"
+   else
+    log_info "Exporting ${JDK_TYPE}"
+    install_jdk ${JDK_TYPE}
+fi
+
 db_file=$(jq -r '.jdbc[] | select ( .name == '\"${DB_TYPE}\"') | .file_name' ${INFRA_JSON})
 wget -q https://integration-testgrid-resources.s3.amazonaws.com/lib/jdbc/${db_file}.jar  -P $TESTGRID_DIR/${PRODUCT_PACK_NAME}/repository/components/lib
 
@@ -105,14 +111,13 @@ sed -i "s|DB_PASSWORD|${CF_DB_PASSWORD}|g" ${INFRA_JSON}
 sed -i "s|DB_NAME|${DB_NAME}|g" ${INFRA_JSON}
 
 export_db_params ${DB_TYPE}
-if [ "$TEST_MODE" == "WUM" ]; then
-build_identity_inbound_oauth
-fi
+
 mkdir -p $PRODUCT_REPOSITORY_PACK_DIR
 log_info "Copying product pack to Repository"
+# shellcheck disable=SC2144
 [ -f $TESTGRID_DIR/$PRODUCT_NAME-$PRODUCT_VERSION*.zip ] && rm -f $TESTGRID_DIR/$PRODUCT_NAME-$PRODUCT_VERSION*.zip
 cd $TESTGRID_DIR && zip -qr $PRODUCT_PACK_NAME.zip $PRODUCT_PACK_NAME
 mv $TESTGRID_DIR/$PRODUCT_PACK_NAME.zip $PRODUCT_REPOSITORY_PACK_DIR/.
 log_info "install pack into local maven Repository"
 mvn install:install-file -Dfile=$PRODUCT_REPOSITORY_PACK_DIR/$PRODUCT_PACK_NAME.zip -DgroupId=org.wso2.am -DartifactId=wso2am -Dversion=$PRODUCT_VERSION -Dpackaging=zip --file=$PRODUCT_REPOSITORY_PACK_DIR/../pom.xml 
-cd $INT_TEST_MODULE_DIR  && mvn clean install -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Ptestgrid
+cd $INT_TEST_MODULE_DIR  && mvn clean install -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Ptestgrid -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false
