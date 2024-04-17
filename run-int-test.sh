@@ -118,7 +118,7 @@ sed -i "s|DB_HOST|${CF_DB_HOST}|g" ${INFRA_JSON}
 sed -i "s|DB_USERNAME|${CF_DB_USERNAME}|g" ${INFRA_JSON}
 sed -i "s|DB_PASSWORD|${CF_DB_PASSWORD}|g" ${INFRA_JSON}
 sed -i "s|DB_NAME|${DB_NAME}|g" ${INFRA_JSON}
-c
+
 export_db_params ${DB_TYPE}
 # delete if the folder is available
 rm -rf $$PRODUCT_REPOSITORY_PACK_DIR
