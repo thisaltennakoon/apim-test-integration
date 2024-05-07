@@ -178,6 +178,7 @@ updateLevelState='TESTING'
 echo "Installing Helm chart - ns ${kubernetes_namespace}  "
 
 helm install apim "kubernetes-apim/${path_to_helm_folder}" \
+    --set wso2.deployment.am.imageTag=4.3.0.0 \
     --set wso2.subscription.username=${WUM_USER} \
     --set wso2.subscription.password=${WUM_PWD} \
     --set wso2.subscription.updateLevelState=$updateLevelState \
