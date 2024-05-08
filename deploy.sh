@@ -153,7 +153,7 @@ fi;
 kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=480s ||  { echo 'Nginx service is not ready within the expected time limit.';  exit 1; }
 
 # Process helm charts 
-sh resources/$path_to_helm_folder/modify-resources.sh "kubernetes-apim" 
+#sh resources/$path_to_helm_folder/modify-resources.sh "kubernetes-apim" 
 
 # Install APIM using helm.
 helm repo add wso2 https://helm.wso2.com && helm repo update ||  { echo 'Error while adding WSO2 helm repository to helm.';  exit 1; }
@@ -178,7 +178,6 @@ updateLevelState='TESTING'
 echo "Installing Helm chart - ns ${kubernetes_namespace}  "
 
 helm install apim "kubernetes-apim/${path_to_helm_folder}" \
-    --set wso2.deployment.am.imageTag=4.3.0.0 \
     --set wso2.subscription.username=${WUM_USER} \
     --set wso2.subscription.password=${WUM_PWD} \
     --set wso2.subscription.updateLevelState=$updateLevelState \
