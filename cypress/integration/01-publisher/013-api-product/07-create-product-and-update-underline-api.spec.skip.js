@@ -38,12 +38,14 @@ describe("publisher-013-01 : Verify an authorized user can create an API product
         cy.get('[data-testid="itest-id-createapi"]').click();
         cy.get('[data-testid="create-api-open-api"]').click();
         cy.get('[data-testid="open-api-file-select-radio"]').click();
+        cy.wait(2000)
 
         // upload the swagger
         cy.get('[data-testid="browse-to-upload-btn"]').then(function () {
             const filepath = 'api_artifacts/petstore-v3.json'
             cy.get('input[type="file"]').attachFile(filepath)
         });
+        cy.wait(3000)
 
         cy.get('[data-testid="api-create-next-btn"]').click();
 
@@ -118,6 +120,7 @@ describe("publisher-013-01 : Verify an authorized user can create an API product
 
                     // Go to api product
                     cy.visit(`/publisher/api-products/${uuidProduct}/resources/edit`);
+                    cy.wait(2000)
                     cy.contains('SwaggerPetstore').click();
 
                     // Add the newly created resource and save

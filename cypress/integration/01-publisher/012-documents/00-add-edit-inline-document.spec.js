@@ -42,8 +42,8 @@ describe("publisher-012-00 : Verify an authorized user can create an inline docu
     })
 
     it("Authorized user creates an inline document", () => {
-        const documentName = 'api document';
-        const documentSummery = 'api document summery';
+        const documentName = 'api-document';
+        const documentSummery = 'api document summary';
         cy.loginToPublisher(publisher, password);
         cy.wait(4000);
         Apis.createAPIFromPetstoreSwagger2AndPublish(swaggerFileName,apiName,apiContext,apiVersion,"")

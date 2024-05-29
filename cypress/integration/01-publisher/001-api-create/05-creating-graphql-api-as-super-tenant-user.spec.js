@@ -35,7 +35,7 @@ describe("publisher-001-05 : Verify authorized user can create GraphQl API from 
         cy.get('[data-testid="create-api-graphql"]').click();
 
         // upload the graphql file
-        cy.get('[data-testid="browse-to-upload-btn"]').then(function () {
+        cy.get('[data-testid="browse-to-upload-btn"]').wait(1000).then(function () {
             const filepath = 'api_artifacts/schema_graphql.graphql'
             cy.get('input[type="file"]').attachFile(filepath)
         });

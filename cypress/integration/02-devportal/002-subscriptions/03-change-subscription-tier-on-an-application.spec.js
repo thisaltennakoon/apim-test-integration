@@ -89,7 +89,7 @@ describe("devportal-002-03 : Verify authorized user can change subscription tier
             cy.get(`[data-testid="edit-api-subscription-${apiName}"]`).click();
             cy.get('[data-testid="edit-api-subscription-select"]').click();
             cy.get(`[data-testid="select-Silver"]`).click();
-            cy.get('button span').contains('Update').click();
+            cy.get('button').contains('Update').click();
 
             // Checking the update is success.
             cy.get(`[data-testid="policy-for-${apiName}"]`).contains('Silver').should('exist');

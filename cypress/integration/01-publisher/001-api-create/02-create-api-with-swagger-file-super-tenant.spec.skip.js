@@ -27,6 +27,7 @@ describe("publisher-001-02 : Verify creating an api with swagger file", () => {
         cy.wait(5000);
         cy.get('[data-testid="itest-id-createapi"]').click();
         cy.get('[data-testid="create-api-open-api"]').click();
+        cy.wait(3000)
         cy.get('[data-testid="open-api-file-select-radio"]').click();
 
         // upload the swagger
@@ -35,6 +36,7 @@ describe("publisher-001-02 : Verify creating an api with swagger file", () => {
             cy.get('input[type="file"]').attachFile(filepath)            
         });
 
+        cy.wait(3000)
         // go to the next step
         cy.get('[data-testid="api-create-next-btn"]').click();
         cy.get('[data-testid="itest-id-apiendpoint-input"] input').click();

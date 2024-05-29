@@ -35,7 +35,7 @@ describe("publisher-004-07 : Verify authroized user can test the API with a mock
 
         // upload the swagger
         // upload the swagger
-        cy.get('[data-testid="browse-to-upload-btn"]').then(function () {
+        cy.get('[data-testid="browse-to-upload-btn"]').wait(1000).then(function () {
             const filepath = 'api_artifacts/petstore-v3.json'
             cy.get('input[type="file"]').attachFile(filepath)            
         });
