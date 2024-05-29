@@ -170,6 +170,7 @@ describe("publisher-002-00 : Verify an authorized user can perform CRUD operatio
         cy.get('[data-testid="scope-save-btn"]').click();
         cy.contains('[data-testid="scope-list-table"]', scopeName).should('be.visible');
 
+        cy.wait(2000)
         // Go to resources page
         cy.get('[data-testid="left-menu-itemresources"]').click();
 

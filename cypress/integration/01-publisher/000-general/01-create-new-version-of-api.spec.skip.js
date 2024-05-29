@@ -17,7 +17,7 @@ describe("publisher-000-01 : Verify an authorized user can create a new version 
 
         cy.createAPIByRestAPIDesign(apiName, apiVersion);
 
-        cy.get('[data-testid="create-new-version-btn"]').click();
+        cy.get('[data-testid="create-new-version-btn"]').click().wait(3000);
         cy.get('[data-testid="new-version-textbox"] input').type(newVersion);
         cy.get('[data-testid="new-version-save-btn"]').click();
 
