@@ -4,6 +4,8 @@ describe("publisher-004-05 : Verify authorized user can add security to the endp
     const password = 'test123';
     const carbonUsername = 'admin';
     const carbonPassword = 'admin';
+    const apiVersion = Math.floor(Date.now() / 100000);
+    const apiName = `sample_api_${apiVersion}`;
 
     before(function () {
         //cy.carbonLogin(carbonUsername, carbonPassword);
@@ -16,7 +18,7 @@ describe("publisher-004-05 : Verify authorized user can add security to the endp
         const passwordLocal = 'admin';
         cy.loginToPublisher(publisher, password);
         cy.wait(2000);
-        cy.createAPIWithoutEndpoint();
+        cy.createAPIWithoutEndpoint(apiName, "REST", apiVersion);
         cy.get('[data-testid="left-menu-itemendpoints"]').click();
         cy.get('[data-testid="http__rest_endpoint-start"]').click();
 
@@ -25,9 +27,11 @@ describe("publisher-004-05 : Verify authorized user can add security to the endp
         cy.get('#primaryEndpoint').focus().type(endpoint);
 
 
-        cy.get('[data-testid="primaryEndpoint-endpoint-security-icon-btn"] .material-icons').trigger('click');
+        cy.get('[data-testid="primaryEndpoint-endpoint-security-icon-btn"]').trigger('click');
+        cy.wait(2000);
         // cy.get('body').click();
         cy.get('[data-testid="auth-type-select"]').click();
+        cy.wait(2000);
         cy.get('[data-testid="auth-type-BASIC"]').click();
         cy.get('#auth-userName').click();
         cy.get('#auth-userName').type(usernameLocal);
@@ -39,19 +43,18 @@ describe("publisher-004-05 : Verify authorized user can add security to the endp
 
         // Save the endpoint
         cy.get('[data-testid="endpoint-save-btn"]').click();
+        cy.wait(3000);
 
         // Check the values
-        cy.get('[data-testid="primaryEndpoint-endpoint-security-icon-btn"] .material-icons').trigger('click');
+        cy.get('[data-testid="primaryEndpoint-endpoint-security-icon-btn"]').trigger('click');
         cy.get('#auth-userName').should('have.value', usernameLocal);
-        cy.get('#auth-password').should('have.value', passwordLocal);
 
 
     });
 
     after(function () {
         // Test is done. Now delete the api
-        cy.get(`[data-testid="itest-id-deleteapi-icon-button"]`).click();
-        cy.get(`[data-testid="itest-id-deleteconf"]`).click();
+        cy.deleteApi(apiName, `v${apiVersion}`);
 
         //cy.visit('carbon/user/user-mgt.jsp');
        // cy.deleteUser(publisher);

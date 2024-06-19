@@ -247,8 +247,8 @@ Cypress.Commands.add('createAndPublishAPIByRestAPIDesign', (name = null, version
     cy.get('[data-testid="itest-api-name-version"]').contains(apiVersion);
 })
 
-Cypress.Commands.add('createAPIWithoutEndpoint', (name, type = 'REST') => {
-    const random_number = Math.floor(Date.now() / 1000);
+Cypress.Commands.add('createAPIWithoutEndpoint', (name, type = 'REST', version=null) => {
+    const random_number = version ? version : Math.floor(Date.now() / 1000);
     const randomName = `sample_api_${random_number}`;
     cy.visit(`/publisher/apis`)
     cy.get('[data-testid="itest-id-createapi"]').click();
