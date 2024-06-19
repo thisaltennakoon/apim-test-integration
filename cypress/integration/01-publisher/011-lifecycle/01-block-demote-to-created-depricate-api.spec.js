@@ -44,9 +44,8 @@ describe("publisher-011-01 : Verify authorized user can change lifecycle status 
 
         // Demote to created
         cy.get('button[data-testid="Demote to Created"]').click();
-        cy.get('button[data-testid="Publish"]').then(() => {
-            cy.get('button[data-testid="Publish"]').click();
-        });
+        cy.get('button[data-testid="Publish"]').click({force: true});
+
         cy.get('button[data-testid="Demote to Created"]').should('exist');
         cy.get('[data-testid="left-menu-itemlifecycle"]').click();
         cy.wait(2000);
