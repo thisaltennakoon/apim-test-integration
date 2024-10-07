@@ -48,6 +48,7 @@ data:
     for log_file in "$log_directory"/*; do
       if [ -f "$log_file" ]; then
         echo "Searching in $log_file:"
+        grep 'Applied updates' "$log_file"
       fi
     done
     echo "===================================================================================================================="
