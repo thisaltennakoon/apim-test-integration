@@ -37,7 +37,7 @@ describe("publisher-004-05 : Add security to the endpoint", () => {
             cy.get('#production_endpoints').focus().type(endpoint);
 
 
-            cy.get('#production_endpoints-endpoint-security-icon-btn').trigger('click');
+            cy.get('#production_endpoints-endpoint-security-icon-btn').click();
             cy.get('#mui-component-select-key').click();
             cy.get('#auth-type-BASIC').click();
             cy.get('#auth-userName').click();
