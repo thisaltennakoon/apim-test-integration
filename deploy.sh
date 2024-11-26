@@ -86,7 +86,8 @@ fi;
 
 # Download DB scripts from S3 bucket.
 mkdir "${db_engine}"
-aws s3 cp "s3://test-grid-apim/profile-automation/apim/${product_version}/${db_engine}/" "./${db_engine}/" --recursive || { echo 'Failed to download DB scripts.';  exit 1; }
+# aws s3 cp "s3://test-grid-apim/profile-automation/apim/${product_version}/${db_engine}/" "./${db_engine}/" --recursive || { echo 'Failed to download DB scripts.';  exit 1; }
+wget -O "./${db_engine}/apim.sql" "https://raw.githubusercontent.com/wso2/apim-test-integration/refs/heads/4.4.0-profile-automation/scripts/mysql/apim.sql" || { echo 'Failed to download DB script.'; exit 1; }
 
 # Update kube config file.
 aws eks update-kubeconfig --region ${EKS_CLUSTER_REGION} --name ${EKS_CLUSTER_NAME} || { echo 'Failed to update cluster kube config.';  exit 1; }
