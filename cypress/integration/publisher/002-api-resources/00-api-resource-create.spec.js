@@ -143,7 +143,7 @@ describe("publisher-002-00 : Resource add edit operations", () => {
     }
 
     const addAndAssignScopesForApiResources = (tenant) => {
-        const random_number = Math.floor(Date.now() / 1000);
+        const random_number = Math.floor(Date.now() / 10000);
         const verb = 'post';
         const scopeName = 'test' + random_number;
         const scopeDescription = 'test scope description';
@@ -161,7 +161,7 @@ describe("publisher-002-00 : Resource add edit operations", () => {
             cy.wait(2000);
             // Create a local scope
             cy.get('input#name').click({force:true});
-            cy.get('input#name').type(scopeName, {force:true});
+            cy.get('input#name').type(scopeName);
 
             cy.get('#displayName').click();
             cy.get('#displayName').type(scopeName);
