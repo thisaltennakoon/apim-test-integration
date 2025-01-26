@@ -160,8 +160,8 @@ describe("publisher-002-00 : Resource add edit operations", () => {
 
             cy.wait(2000);
             // Create a local scope
-            cy.get('input#name').click({force:true});
-            cy.get('input#name').type(scopeName, {force:true});
+            cy.get('#name').click();
+            cy.get('#name').type(scopeName);
 
             cy.get('#displayName').click();
             cy.get('#displayName').type(scopeName);
