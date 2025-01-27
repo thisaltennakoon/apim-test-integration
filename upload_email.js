@@ -91,4 +91,4 @@ var zipFileOutputLocation = `./cypress/screenshots-${timestamp}.zip`;
 zipDirectory('./cypress/screenshots', zipFileOutputLocation).then(()=>{
   uploadFile(zipFileOutputLocation, `400-result/screenshots-${timestamp}.zip`, "application/zip")
 });
-sendMail();
+//sendMail();

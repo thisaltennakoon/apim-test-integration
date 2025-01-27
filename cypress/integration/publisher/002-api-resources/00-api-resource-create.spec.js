@@ -143,7 +143,7 @@ describe("publisher-002-00 : Resource add edit operations", () => {
     }
 
     const addAndAssignScopesForApiResources = (tenant) => {
-        const random_number = Math.floor(Date.now() / 1000);
+        const random_number = Math.floor(Date.now() / 10000);
         const verb = 'post';
         const scopeName = 'test' + random_number;
         const scopeDescription = 'test scope description';
