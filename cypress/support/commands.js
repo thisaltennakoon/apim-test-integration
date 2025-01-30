@@ -579,8 +579,8 @@ Cypress.Commands.add('createAndPublishApi', (apiName = null) => {
 
 Cypress.Commands.add('logoutFromDevportal', (referer = '/devportal/apis') => {
 
-    cy.get('#userToggleButton').click();
-    cy.get("#userPopup").get("#menu-list-grow").get('ul').contains('li','Logout').click();
+    cy.get('#userToggleButton').click({ force: true });
+    cy.get("#userPopup").get("#menu-list-grow").get('ul').contains('li','Logout').click({ force: true });
     cy.url().should('contain', '/devportal/logout');
     cy.url().should('contain', referer);
 })
